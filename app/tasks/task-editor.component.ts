@@ -6,7 +6,8 @@ import  {
     CanActivate,
     OnActivate,
     CanDeactivate,
-    OnDeactivate 
+    OnDeactivate ,
+    ComponentInstruction
 } from '@angular/router-deprecated';
 import {
     Task,
@@ -34,7 +35,7 @@ import {
     return (passPhrase === 'open sesame');
 })
 */
-@CanActivate(AuthenitcationService.isAuthorized)
+//@CanActivate(AuthenitcationService.isAuthorized)
 export default class TaskEditorComponent implements OnActivate, CanDeactivate, OnDeactivate {
     task: Task;
     changesSaved: boolean;
@@ -53,9 +54,13 @@ export default class TaskEditorComponent implements OnActivate, CanDeactivate, O
             this.title.setTitle('Welcome to the Task Form!');
     }
 
-    routerCanDeactivate(): Promise<boolean> | boolean {
+    /*routerCanDeactivate(): Promise<boolean> | boolean {
         console.log('Can deactivate running...');
         return this.changesSaved || confirm('Are you sure you want to leave?');
+    }*/
+
+    routerCanDeactivate( next: ComponentInstruction, prev: ComponentInstruction) {
+        return !AuthenitcationService.isAuthorized() || this.changesSaved || confirm('Are you sure you want to leave?');
     }
 
     routerOnDeactivate(): void {

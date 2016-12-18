@@ -57,7 +57,7 @@ System.register(['@angular/core', './timer/timer', './tasks/tasks', './shared/sh
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'pomodoro-app',
-                        directives: [router_deprecated_1.ROUTER_DIRECTIVES],
+                        directives: [router_deprecated_1.ROUTER_DIRECTIVES, shared_1.SHARED_DIRECTIVES],
                         providers: [shared_1.SHARED_PROVIDERS, http_1.HTTP_PROVIDERS, router_deprecated_1.ROUTER_PROVIDERS],
                         styles: ["\n        .router-link-active {\n            font-weight: bold;\n            border-bottom: 2px #d9534f solid;\n        }\n    "],
                         templateUrl: 'app/app.component.html'

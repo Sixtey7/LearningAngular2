@@ -39,9 +39,12 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/router-
                 TaskEditorComponent.prototype.routerOnActivate = function () {
                     this.title.setTitle('Welcome to the Task Form!');
                 };
-                TaskEditorComponent.prototype.routerCanDeactivate = function () {
+                /*routerCanDeactivate(): Promise<boolean> | boolean {
                     console.log('Can deactivate running...');
                     return this.changesSaved || confirm('Are you sure you want to leave?');
+                }*/
+                TaskEditorComponent.prototype.routerCanDeactivate = function (next, prev) {
+                    return !shared_1.AuthenitcationService.isAuthorized() || this.changesSaved || confirm('Are you sure you want to leave?');
                 };
                 TaskEditorComponent.prototype.routerOnDeactivate = function () {
                     this.title.setTitle('My Angular 2 Pomodoro Timer');
@@ -60,8 +63,7 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/router-
                         providers: [platform_browser_1.Title],
                         templateUrl: 'app/tasks/task-editor.component.html',
                         styles: ["\n        .ng-valid { border-color: #3c763d; }\n        .ng-invalid { border-color: #a94442; }\n        .ng-untouched { border-color: #999999; }\n    "]
-                    }),
-                    router_deprecated_1.CanActivate(shared_1.AuthenitcationService.isAuthorized), 
+                    }), 
                     __metadata('design:paramtypes', [platform_browser_1.Title, router_deprecated_1.Router, shared_1.TaskService])
                 ], TaskEditorComponent);
                 return TaskEditorComponent;

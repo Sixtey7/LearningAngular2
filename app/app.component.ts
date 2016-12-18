@@ -5,7 +5,9 @@ import {
     TaskEditorComponent, 
 } from './tasks/tasks';
 import { SHARED_PROVIDERS,
-    AuthenitcationService } from './shared/shared';
+    AuthenitcationService,
+    SHARED_DIRECTIVES 
+} from './shared/shared';
 import { HTTP_PROVIDERS } from '@angular/http';
 import { 
     ROUTER_PROVIDERS,
@@ -18,7 +20,7 @@ import { LoginComponent } from './login/login';
 
 @Component({
     selector: 'pomodoro-app',
-    directives: [ROUTER_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, SHARED_DIRECTIVES],
     providers: [SHARED_PROVIDERS, HTTP_PROVIDERS, ROUTER_PROVIDERS],
     styles: [`
         .router-link-active {
