@@ -15,18 +15,12 @@
             // Here we import the component module
             // with no file extension
             //System.import ('built/hello-angular');
-            System.import ('built/pomodoro-tasks').then(null, console.error.bind(console));
+            System.import ('built/app/main').then(null, console.error.bind(console));
         </script>
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <base href="/">
     </head>
     <body>
-       <nav class = "navbar navbar-default navbar-static-top">
-           <div class = "container">
-               <div class = "navbar-header">
-                   <strong class = "navbar-brand">My Pomodoro Tasks</strong>
-               </div>
-           </div>
-       </nav>
-       <pomodoro-tasks></pomodoro-tasks>
+       <pomodoro-app>Loading...</pomodoro-app>
     </body>
 </html>
