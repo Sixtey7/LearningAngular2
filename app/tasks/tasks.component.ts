@@ -6,13 +6,14 @@ import {
     TaskService,
     SettingsService,
     Task,
-    SHARED_PIPES
+    SHARED_PIPES,
+    SHARED_DIRECTIVES
 } from '../shared/shared'
 import { Router } from '@angular/router-deprecated';
 
 @Component({
     selector: 'pomodoro-tasks',
-    directives: [ TasksIconsComponent, TaskTooltipDirective ],
+    directives: [ TasksIconsComponent, TaskTooltipDirective, SHARED_DIRECTIVES ],
     pipes: [SHARED_PIPES],
     styleUrls: ['app/tasks/tasks.component.css'],
     templateUrl: 'app/tasks/tasks.component.html'

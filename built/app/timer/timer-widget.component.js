@@ -1,4 +1,4 @@
-System.register(['@angular/core', '../shared/shared', '@angular/router-deprecated'], function(exports_1, context_1) {
+System.register(['@angular/core', '../shared/shared', '@angular/router-deprecated', '@angular/platform-browser/src/animate/animation_builder'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '../shared/shared', '@angular/router-deprecate
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, shared_1, router_deprecated_1;
+    var core_1, shared_1, router_deprecated_1, animation_builder_1;
     var TimerWidgetComponent;
     return {
         setters:[
@@ -22,14 +22,24 @@ System.register(['@angular/core', '../shared/shared', '@angular/router-deprecate
             },
             function (router_deprecated_1_1) {
                 router_deprecated_1 = router_deprecated_1_1;
+            },
+            function (animation_builder_1_1) {
+                animation_builder_1 = animation_builder_1_1;
             }],
         execute: function() {
             TimerWidgetComponent = (function () {
-                function TimerWidgetComponent(settingsService, routeParams, taskService) {
+                function TimerWidgetComponent(settingsService, routeParams, taskService, animationBuilder, elementRef) {
                     this.settingsService = settingsService;
                     this.routeParams = routeParams;
                     this.taskService = taskService;
+                    this.animationBuilder = animationBuilder;
+                    this.elementRef = elementRef;
                     this.buttonLabelsMap = settingsService.labelsMap.timer;
+                    this.fadeInAnimationBuilder = animationBuilder.css();
+                    this.fadeInAnimationBuilder.setDuration(1000)
+                        .setDelay(300)
+                        .setFromStyles({ opacity: 0 })
+                        .setToStyles({ opacity: 1 });
                 }
                 TimerWidgetComponent.prototype.ngOnInit = function () {
                     var _this = this;
@@ -39,6 +49,8 @@ System.register(['@angular/core', '../shared/shared', '@angular/router-deprecate
                     if (!isNaN(taskIndex)) {
                         this.taskName = this.taskService.taskStore[taskIndex].name;
                     }
+                    var animation = this.fadeInAnimationBuilder.start(this.elementRef.nativeElement.firstElementChild);
+                    animation.onComplete(function () { return console.log('Animation Completed!'); });
                 };
                 TimerWidgetComponent.prototype.resetPomodoro = function () {
                     this.isPaused = true;
@@ -74,9 +86,10 @@ System.register(['@angular/core', '../shared/shared', '@angular/router-deprecate
                 TimerWidgetComponent = __decorate([
                     core_1.Component({
                         selector: 'pomodoro-timer-widget',
-                        template: "\n        <div class = \"text-center\">\n            <img src=\"/app/shared/assets/img/pomodoro.png\">\n            <h3><small>{{ taskName }}</small></h3>\n            <h1> {{ minutes }}:{{ seconds | number: '2.0' }}</h1>\n            <p>\n                <button (click)=\"togglePause()\" class=\"btn btn-danger\">\n                    {{ buttonLabelKey | i18nSelect: buttonLabelsMap }}\n                </button>\n            </p>\n        </div>"
+                        styleUrls: ['app/timer/timer-widget.component.css'],
+                        template: "\n        <div class = \"text-center\">\n            <img src=\"/app/shared/assets/img/pomodoro.png\"\n                [ngClass] = \"{ pulse: !isPaused }\">\n            <h3><small>{{ taskName }}</small></h3>\n            <h1> {{ minutes }}:{{ seconds | number: '2.0' }}</h1>\n            <p>\n                <button (click)=\"togglePause()\" class=\"btn btn-danger\">\n                    {{ buttonLabelKey | i18nSelect: buttonLabelsMap }}\n                </button>\n            </p>\n        </div>"
                     }), 
-                    __metadata('design:paramtypes', [shared_1.SettingsService, router_deprecated_1.RouteParams, shared_1.TaskService])
+                    __metadata('design:paramtypes', [shared_1.SettingsService, router_deprecated_1.RouteParams, shared_1.TaskService, animation_builder_1.AnimationBuilder, core_1.ElementRef])
                 ], TimerWidgetComponent);
                 return TimerWidgetComponent;
             }());

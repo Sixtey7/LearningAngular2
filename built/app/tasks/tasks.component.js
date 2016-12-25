@@ -66,7 +66,7 @@ System.register(['@angular/core', './task-icons.component', './task-tooltip.dire
                 TasksComponent = __decorate([
                     core_1.Component({
                         selector: 'pomodoro-tasks',
-                        directives: [task_icons_component_1.default, task_tooltip_directive_1.default],
+                        directives: [task_icons_component_1.default, task_tooltip_directive_1.default, shared_1.SHARED_DIRECTIVES],
                         pipes: [shared_1.SHARED_PIPES],
                         styleUrls: ['app/tasks/tasks.component.css'],
                         templateUrl: 'app/tasks/tasks.component.html'
